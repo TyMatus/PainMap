@@ -1,34 +1,35 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>PainMap — Interactive Symptom Mapper</title>
+  
+  <!-- Your CSS -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Model-viewer library for 3D model -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="brand">PainMap</div>
   </header>
 
-
   <main class="container">
     <section class="controls">
       <div class="model-select">
+        <!-- Only Male model now -->
         <button id="btnMale" class="model-btn active">Male</button>
-        <button id="btnFemale" class="model-btn">Female</button>
       </div>
-
 
       <div class="instructions">
         <p>Click the muscles or tendons where you feel symptoms. Then describe the pain to get probable diagnoses.</p>
       </div>
 
-
       <div class="selected-list">
         <strong>Selected muscles:</strong> <span id="selectedRegions">None</span>
       </div>
-
 
       <div class="actions">
         <button id="btnDescribe" class="primary" disabled>Describe Pain & Get Results</button>
@@ -36,17 +37,23 @@
       </div>
     </section>
 
-
-    <section id="viewer" class="viewer"></section>
+    <!-- 3D Model Viewer Section -->
+    <section id="viewer" class="viewer">
+      <model-viewer 
+          src="models/ecorche_-_anatomy_study.glb" 
+          alt="Anatomy Model" 
+          auto-rotate 
+          camera-controls 
+          style="width: 800px; height: 600px;">
+      </model-viewer>
+    </section>
   </main>
-
 
   <!-- Pain description modal -->
   <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
     <div class="modal-card">
       <button id="modalClose" class="modal-close">&times;</button>
       <h3>Describe the pain</h3>
-
 
       <form id="painForm">
         <div class="checkbox-grid">
@@ -59,12 +66,10 @@
           <label><input type="checkbox" name="painType" value="aching"> Aching</label>
         </div>
 
-
         <label class="full">
           More details (optional)
           <textarea id="details" placeholder="Any other details: when it started, what makes it worse, etc."></textarea>
         </label>
-
 
         <div class="modal-actions">
           <button type="button" id="submitPain" class="primary">Get Probable Diagnoses</button>
@@ -72,7 +77,6 @@
       </form>
     </div>
   </div>
-
 
   <!-- Results -->
   <div id="results" class="results hidden">
@@ -86,7 +90,7 @@
     </div>
   </div>
 
-
+  <!-- Your JavaScript -->
   <script type="module" src="app.js"></script>
 </body>
 </html>
